@@ -9,15 +9,30 @@ public class MatchingParenthesesTest {
 	@Test
 	public void testStringWithMatchingParentheses(){
 		String testString ="((())())()";
-		Assert.assertEquals(true, MatchingParentheses.match(testString));
+		Assert.assertEquals(0, MatchingParentheses.findMismatchPosition(testString));
 	}
 	
 	@Test
-	public void testStringWithNoMatchingParentheses(){
+	public void testLeftMismatch(){
+		Assert.assertEquals(1, MatchingParentheses.findMismatchPosition("("));
+	}
+	
+	@Test
+	public void testRightMismatch(){
+		Assert.assertEquals(1, MatchingParentheses.findMismatchPosition(")"));
+	}
+	
+	@Test
+	public void testMismatchPosition(){
+		Assert.assertEquals(3, MatchingParentheses.findMismatchPosition("()((()"));
+	}
+	
+	@Test
+	public void testBookExample(){
 		String testString1 =")()(";
-		Assert.assertEquals(false, MatchingParentheses.match(testString1));
+		Assert.assertEquals(1, MatchingParentheses.findMismatchPosition(testString1));
 		
 		String testString2 = "())";
-		Assert.assertEquals(false, MatchingParentheses.match(testString2));
+		Assert.assertEquals(3, MatchingParentheses.findMismatchPosition(testString2));
 	}
 }

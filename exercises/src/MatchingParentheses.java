@@ -1,5 +1,6 @@
 import java.util.Stack;
 
+
 /**
  * This class solves the following problem.
  * A common problem for compilers and text editors is determining whether the
@@ -15,33 +16,27 @@ import java.util.Stack;
 
 public class MatchingParentheses {
 
-	public static boolean match(String testString) {
-		Stack<Character> stack = new Stack<>();
-		compareCharacter(testString, stack, '(', ')');
-		if(stack.size() > 0) {
-			return false;
-			
-		} else {
-			return true;
-		}
-	}
-
-	private static void compareCharacter(String testString, Stack<Character> stack,
-			Character leftParenthesis, Character rightParenthesis) {
-		int countIndex=0;
+	public static int findMismatchPosition(String testString) {
+		Stack<Integer> stack = new Stack<>();
 		for(int index=0; index< testString.length(); index++) {
-			if(leftParenthesis.equals(testString.charAt(index))) {
-				stack.push(testString.charAt(index));
-			} 
-			if(rightParenthesis.equals(testString.charAt(index))) {
-				if(!stack.empty()) {
-					stack.pop();
+			char ch = testString.charAt(index);
+			switch (ch) {
+			case '(':
+				stack.push(index+1);
+				break;
+			case ')':
+				if(stack.isEmpty()){
+					return index +1;
 				}
-				else {
-					countIndex = index + 1;
-					System.out.println("String does not have matching parenthesis at: "+countIndex);
-				}
+				stack.pop();
+				break;
 			}
 		}
+		
+		int result = 0;
+		while(!stack.empty()){
+			result = stack.pop();
+		}
+		return result;
 	}
 }
