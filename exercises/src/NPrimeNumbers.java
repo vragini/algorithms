@@ -6,7 +6,8 @@ public class NPrimeNumbers {
 
 	public static void main(String args[]) {
 		int number = Integer.valueOf(args[0]);
-		for(int i=2;i<=number;i++) {
+		for(int i=1;i<=number;i++) {
+			
 			if(isPrime(i)) {
 				System.out.format("%d%s",i," ");
 			}
