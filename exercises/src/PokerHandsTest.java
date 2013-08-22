@@ -92,5 +92,93 @@ public class PokerHandsTest {
 		Assert.assertEquals("Tie", new PokerHands().getWinner(blackCards, whiteCards));
 
 	}
+	
+	@Test
+	public void testPairTestOne() {
+		
+		List<PokerHands.Card> blackCards = new ArrayList<>();
+		blackCards.add(new PokerHands.Card("2D"));
+		blackCards.add(new PokerHands.Card("2H"));
+		blackCards.add(new PokerHands.Card("3D"));
+		blackCards.add(new PokerHands.Card("4D"));
+		blackCards.add(new PokerHands.Card("5D"));
+		
+		
+		List<PokerHands.Card> whiteCards = new ArrayList<>();
+		whiteCards.add(new PokerHands.Card("2C"));
+		whiteCards.add(new PokerHands.Card("2S"));
+		whiteCards.add(new PokerHands.Card("3C"));
+		whiteCards.add(new PokerHands.Card("5C"));
+		whiteCards.add(new PokerHands.Card("5H"));
+		
+		Assert.assertEquals("White wins", new PokerHands().getWinner(blackCards, whiteCards));
+		
+	}
+	
+	@Test
+	public void testTwoPairCaseOne() {
+		
+		List<PokerHands.Card> blackCards = new ArrayList<>();
+		blackCards.add(new PokerHands.Card("KD"));
+		blackCards.add(new PokerHands.Card("KH"));
+		blackCards.add(new PokerHands.Card("2D"));
+		blackCards.add(new PokerHands.Card("2H"));
+		blackCards.add(new PokerHands.Card("JD"));
+		
+		
+		List<PokerHands.Card> whiteCards = new ArrayList<>();
+		whiteCards.add(new PokerHands.Card("JC"));
+		whiteCards.add(new PokerHands.Card("JS"));
+		whiteCards.add(new PokerHands.Card("TC"));
+		whiteCards.add(new PokerHands.Card("TD"));
+		whiteCards.add(new PokerHands.Card("9H"));
+		
+		Assert.assertEquals("Black wins", new PokerHands().getWinner(blackCards, whiteCards));
+		
+	}
+	
+	@Test
+	public void testTwoPairCaseTwo() {
+		
+		List<PokerHands.Card> blackCards = new ArrayList<>();
+		blackCards.add(new PokerHands.Card("9D"));
+		blackCards.add(new PokerHands.Card("9H"));
+		blackCards.add(new PokerHands.Card("5D"));
+		blackCards.add(new PokerHands.Card("5H"));
+		blackCards.add(new PokerHands.Card("KD"));
+		
+		
+		List<PokerHands.Card> whiteCards = new ArrayList<>();
+		whiteCards.add(new PokerHands.Card("9C"));
+		whiteCards.add(new PokerHands.Card("9S"));
+		whiteCards.add(new PokerHands.Card("7C"));
+		whiteCards.add(new PokerHands.Card("7D"));
+		whiteCards.add(new PokerHands.Card("6H"));
+		
+		Assert.assertEquals("White wins", new PokerHands().getWinner(blackCards, whiteCards));
+		
+	}
+	
+	@Test
+	public void testTwoPairCaseThree() {
+		
+		List<PokerHands.Card> blackCards = new ArrayList<>();
+		blackCards.add(new PokerHands.Card("9D"));
+		blackCards.add(new PokerHands.Card("9H"));
+		blackCards.add(new PokerHands.Card("5D"));
+		blackCards.add(new PokerHands.Card("5H"));
+		blackCards.add(new PokerHands.Card("KD"));
+		
+		
+		List<PokerHands.Card> whiteCards = new ArrayList<>();
+		whiteCards.add(new PokerHands.Card("9C"));
+		whiteCards.add(new PokerHands.Card("9S"));
+		whiteCards.add(new PokerHands.Card("5C"));
+		whiteCards.add(new PokerHands.Card("5S"));
+		whiteCards.add(new PokerHands.Card("QH"));
+		
+		Assert.assertEquals("Black wins", new PokerHands().getWinner(blackCards, whiteCards));
+		
+	}
 }
 

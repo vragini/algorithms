@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -106,8 +107,7 @@ public class PokerHands {
 	}
 		
 	private static enum Hand {
-        HIGHCARD, PAIR, TWOPAIR, THREEOFAKIND, STRAIGHT, FLUSH, FULLHOUSE,
-        FOUROFAKIND, STRAIGHTFLUSH;
+        HIGHCARD, PAIR, TWOPAIR;
     }
  
     private static final String TIE = "Tie";
@@ -130,6 +130,26 @@ public class PokerHands {
         int cmp = whType.compareTo(bhType);
         if(cmp==0) {
         	switch (whType) {
+        	case TWOPAIR:
+        		cmp = cmpByHighCard(whiteHand, blackHand);
+        		if(cmp==0){
+        			cmp = cmpByHighCard(whiteHand.subList(0, 2), blackHand.subList(0, 2));
+        		}
+        		if(cmp==0){
+        			List<Card> wRemaining = new ArrayList<>(whiteCards);
+            		List<Card> bRemaining = new ArrayList<>(blackCards);
+            		wRemaining.removeAll(whiteHand);
+            		bRemaining.removeAll(blackHand);
+        			cmp = cmpByHighCard(wRemaining, bRemaining);
+        		}
+        		break;
+        	case PAIR:
+        		List<Card> wRemaining = new ArrayList<>(whiteCards);
+        		List<Card> bRemaining = new ArrayList<>(blackCards);
+        		wRemaining.removeAll(whiteHand);
+        		bRemaining.removeAll(blackHand);
+        		cmp = cmpByRecursiveHighCard(wRemaining,bRemaining );
+        		break;
 			case HIGHCARD:
 				cmp = cmpByRecursiveHighCard(whiteCards, blackCards);
 				break;
@@ -137,6 +157,12 @@ public class PokerHands {
         }
         winner = cmp > 0 ? WHITE : cmp < 0 ? BLACK : TIE;
         return winner;
+	}
+
+	private int cmpByHighCard(List<Card> hand1, List<Card> hand2) {
+		Card wc = hand1.get(hand1.size()-1);
+		Card bc = hand2.get(hand2.size()-1);
+		return wc.compareTo(bc);
 	}
 
 	private int cmpByRecursiveHighCard(List<Card> hand1,List<Card> hand2) {
@@ -157,10 +183,59 @@ public class PokerHands {
 	private Hand getHand(List<Card> cards, List<Card> hand) {
 		Collections.sort(cards);
         Hand h;
-        h= Hand.HIGHCARD;
+        if(isTwoPair(cards,hand)) {
+        	h=Hand.TWOPAIR;
+        }else if(isPair(cards,hand)) {
+        	h=Hand.PAIR;
+        } else {
+        	h= Hand.HIGHCARD;
+        }
         return h;
 	}
 	
+	private boolean isTwoPair(List<Card> cards, List<Card> hand) {
+		Collections.sort(cards);
+		Iterator<Card> iterator = cards.iterator();
+		Card prev = iterator.next();
+		
+		while(iterator.hasNext()) {
+			Card c = iterator.next();
+			if(prev.rank.getValue() == c.rank.getValue()) {
+				hand.add(prev);
+				hand.add(c);
+				if(iterator.hasNext()){
+					c= iterator.next();
+				}
+			}
+			prev= c;
+		}
+		if(hand.size()==4) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isPair(List<Card> cards, List<Card> hand) {
+		Collections.sort(cards);
+		Iterator<Card> iterator = cards.iterator();
+		Card prev = iterator.next();
+		
+		while(iterator.hasNext()) {
+			Card c = iterator.next();
+			
+			if(prev.rank.getValue() == c.rank.getValue()) {
+				hand.add(prev);
+				hand.add(c);
+				break;
+			}
+			prev = c;
+		}
+		if(hand.size()==2) {
+			return true;
+		}
+		return false;
+	}
+
 	private void reset() {
         whiteCards.clear();
         whiteHand.clear();
