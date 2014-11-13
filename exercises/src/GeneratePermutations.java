@@ -21,7 +21,7 @@ public class GeneratePermutations {
 		} else {
 			for(int i =0; i<n; i++) {
 				if(!used[i]) {
-					sol[k]=i;
+					sol[k]=i+1;
 					used[i]= true;
 					generatePerm(used, n, k+1, sol, lout);
 					used[i]=false;

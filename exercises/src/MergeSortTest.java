@@ -11,14 +11,14 @@ public class MergeSortTest {
 	
 	@Before
 	public void setup(){
-		numbers= new int[]{3,1,6,34,12};
+		numbers= new int[]{3,1,6,34,12,2};
 	}
 	
 	@Test
 	public void testMergeSort() {
 		MergeSort mergesort = new MergeSort();
 		int[] sorted = mergesort.sort(numbers);
-		Assert.assertArrayEquals(new int[]{1,3,6,12,34}, sorted);
+		Assert.assertArrayEquals(new int[]{1,2,3,6,12,34}, sorted);
 	}
 	
 	// a [4,5,6]

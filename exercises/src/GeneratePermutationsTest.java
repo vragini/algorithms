@@ -19,6 +19,9 @@ public class GeneratePermutationsTest {
 	public void testGenerateTwoNumberPermutations(){
 		List<int[]> listOfPerms = GeneratePermutations.generatePerm(2);
 		Assert.assertEquals(2, listOfPerms.size());
+		for(int[] each :listOfPerms){
+			System.out.println(Arrays.toString(each));
+		}
 	}
 	
 	@Test

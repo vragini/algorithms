@@ -28,7 +28,7 @@ public class MergeSort {
 	}
 
 	private void merge(int low, int middle, int high) {
-		System.out.println("LOW-- "+low +"MIDDLE-- "+middle+"HIGH-- "+high);
+		System.out.println("LOW-- "+low +" MIDDLE-- "+middle+" HIGH-- "+high);
 		for (int i = low; i <= high; i++) {
 		      helperArray[i] = numberArray[i];
 		    }
@@ -36,8 +36,8 @@ public class MergeSort {
 		int i = low;
 		int j = middle+1;
 		int k = low;
-		
-		while(i<=middle && j <= high) {
+		System.out.println("I-- "+i+" J-- "+j+" K-- "+k);
+		while(i<=middle && j <= high) {//
 			if(helperArray[i] <= helperArray[j]) {
 				numberArray[k] = helperArray[i];
 				i++;
@@ -53,13 +53,6 @@ public class MergeSort {
 			i++;
 			k++;
 		}
-		
-		
-		
-		
-		
-		
-		
 		
 	}
 
